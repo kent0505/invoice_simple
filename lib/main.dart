@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:invoice_simple/core/helpers/app_constants.dart';
 import 'package:invoice_simple/core/helpers/custom_bloc_observer.dart';
 import 'package:invoice_simple/features/dashboard/data/models/invoice_model.dart';
@@ -16,6 +17,10 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
+  await Purchases.configure(
+    PurchasesConfiguration('appl_XOzrSgcIeAVfozHHQbvIJjGyatM'),
+  );
 
   await Hive.initFlutter();
 

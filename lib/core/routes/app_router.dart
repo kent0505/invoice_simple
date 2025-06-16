@@ -11,6 +11,7 @@ import 'package:invoice_simple/features/dashboard/ui/screens/invoice_details_vie
 import 'package:invoice_simple/features/dashboard/ui/screens/new_invoice_view.dart';
 import 'package:invoice_simple/features/onboarding/ui/screens/onboard_screen.dart';
 import 'package:invoice_simple/features/onboarding/ui/screens/splash_screen.dart';
+import 'package:invoice_simple/features/pro/screens/pro_page.dart';
 import 'package:invoice_simple/features/settings/ui/screens/add_clients_view.dart';
 import 'package:invoice_simple/features/settings/ui/screens/add_item_view.dart';
 import 'package:invoice_simple/features/settings/ui/screens/add_new_business_view.dart';
@@ -100,6 +101,14 @@ final routerConfig = GoRouter(
       path: AddClientsView.routeName,
       builder: (context, state) => AddClientsView(
         clickable: state.extra as bool? ?? false,
+      ),
+    ),
+
+    //
+    GoRoute(
+      path: ProPage.routePath,
+      builder: (context, state) => ProPage(
+        identifier: state.extra as String,
       ),
     ),
   ],

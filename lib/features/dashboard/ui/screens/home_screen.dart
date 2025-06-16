@@ -16,10 +16,10 @@ import 'package:invoice_simple/features/dashboard/ui/cubit/invoice_dashboard_cub
 import 'package:invoice_simple/features/dashboard/ui/screens/new_invoice_view.dart';
 import 'package:invoice_simple/features/dashboard/ui/widgets/custom_filter_button.dart';
 import 'package:invoice_simple/features/dashboard/ui/widgets/custom_invoice_tile.dart';
+import 'package:invoice_simple/features/pro/bloc/pro_bloc.dart';
+import 'package:invoice_simple/features/pro/screens/pro_page.dart';
+import 'package:invoice_simple/features/pro/screens/pro_sheet.dart';
 import 'package:invoice_simple/features/settings/ui/screens/settings_view.dart';
-
-import '../../../pro/bloc/pro_bloc.dart';
-import '../../../pro/screens/pro_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -152,9 +152,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.all(
                               AppConstants.paddingHorizontal,
                             ),
-                            itemCount: 10,
+                            itemCount: filteredList.length,
                             itemBuilder: (context, index) {
-                              final invoice = filteredList[0];
+                              final invoice = filteredList[index];
 
                               final color =
                                   invoiceColors[index % invoiceColors.length];
@@ -173,16 +173,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         SizedBox(height: 8),
                         FilledTextButton(
-                          onPressed: () =>
-                              context.push(NewInvoiceView.routeName),
+                          onPressed: () {
+                            if (context.read<ProBloc>().state.isPro) {
+                              context.push(NewInvoiceView.routeName);
+                            } else {
+                              context.push(
+                                ProPage.routePath,
+                                extra: Identifiers.paywall_1,
+                              );
+                            }
+                          },
                           text: "Create Invoice",
                         ),
                         SizedBox(height: 8),
                         OutlinedTextButton(
-                          onPressed: () => context.push(
-                            NewInvoiceView.routeName,
-                            extra: true,
-                          ),
+                          onPressed: () {
+                            context.push(
+                              NewInvoiceView.routeName,
+                              extra: true,
+                            );
+                          },
                           text: "Create Estimates",
                         ),
                         SizedBox(
